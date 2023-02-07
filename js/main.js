@@ -75,11 +75,50 @@ for (let i = 0; i < images.length; i++) {
         slideClass += " active";
     }
     // slides
-    const slide = `
+    const slidesEl = `
     <div class="${slideClass}">
     <img src="${currentImage}" alt="slide" class="img-fluid">
     </div>
     `
-    containerSlides.innerHTML += slide;
+    containerSlides.innerHTML += slidesEl;
 
 }
+
+prevEl.addEventListener(
+    "click",
+    function () {
+        // recupero TUTTE le slide
+        const slides = document.querySelectorAll(".item");
+        // da activeImage rimuovo la classe "active"
+        slides[activeImage].classList.remove("active");
+        // decremento activeImage
+        activeImage--;
+        // LOOP CIRCOLARE (vedrò le foto al scorrendo al contrario)
+        if (activeImage < 0) {
+            activeImage = slides.length - 1;
+        }
+        // alla slide con activeImage assegno la classe "active"
+        slides[activeImage].classList.add("active");
+
+    }
+)
+nextEl.addEventListener(
+    "click",
+    function () {
+        // recupero TUTTE le slide
+        const slides = document.querySelectorAll(".item");
+        // da activeImage rimuovo la classe "active"
+        slides[activeImage].classList.remove("active");
+        // incremento activeImage
+        activeImage++;
+
+        // LOOP CIRCOLARE (dopo l'ultima foto dell'array ricomincia dalla prima)
+        if (activeImage >= slides.length) {
+            activeImage = 0;
+        }
+        // alla slide con activeImage assegno la classe "active"
+        slides[activeImage].classList.add("active");
+
+        console.log(slides);
+    }
+)
